@@ -1,0 +1,12 @@
+- name: Cloning .dotfiles
+  ansible.builtin.git:
+    repo: 'https://github.com/wederribas/dotfiles-linux.git'
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    recursive: yes
+    update: yes
+    accept_hostkey: yes
+    version: main
+  tags: &tags_for_dotfiles ['install', 'dotfiles']
+- name: Stow dotfiles
+  shell: cd $HOME/.dotfiles && ./fedora
+  tags: [*tags_for_dotfiles]

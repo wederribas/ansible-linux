@@ -1,0 +1,23 @@
+- name: Install the 'Development tools' package group
+  ansible.builtin.dnf:
+    name: '@Development tools'
+    state: present
+  become: true
+  tags: &tags_for_dnf_task ['dnf', 'install']
+
+- name: Install Rust programming language (>=1.78) - also install cargo
+  ansible.builtin.dnf:
+    name:
+      - rust >= 1.78
+      - cargo >= 1.78
+    state: present
+  become: true
+  tags: [*tags_for_dnf_task, 'rust', 'languages']
+
+- name: Install ansible dependencies
+  ansible.builtin.dnf:
+    name:
+      - stow
+    state: present
+  become: true
+  tags: [*tags_for_dnf_task, 'ansible']
