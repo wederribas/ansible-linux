@@ -5,6 +5,20 @@
   become: true
   tags: &tags_for_dnf_task ['dnf', 'install']
 
+- name: Install ansible dependencies
+  ansible.builtin.dnf:
+    name:
+      - autojump
+      - autojump-zsh
+      - stow
+    state: present
+  become: true
+  tags: [*tags_for_dnf_task, 'ansible']
+
+################################
+# BEGIN: Programming languages #
+################################
+
 - name: Install Rust programming language (>=1.78) - also install cargo
   ansible.builtin.dnf:
     name:
@@ -14,10 +28,6 @@
   become: true
   tags: [*tags_for_dnf_task, 'rust', 'languages']
 
-- name: Install ansible dependencies
-  ansible.builtin.dnf:
-    name:
-      - stow
-    state: present
-  become: true
-  tags: [*tags_for_dnf_task, 'ansible']
+################################
+# END: Programming languages #
+################################
