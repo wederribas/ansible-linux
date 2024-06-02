@@ -42,6 +42,14 @@
   become: true
   tags: [*tags_for_dnf_task, 'rust', 'languages']
 
+- name: Install Go programming language (>=1.22.3)
+  ansible.builtin.dnf:
+    name:
+      - golang >= 1.22.3
+    state: present
+  become: true
+  tags: [*tags_for_dnf_task, 'go', 'golang', 'languages']
+
 ################################
 # END: Programming languages #
 ################################
