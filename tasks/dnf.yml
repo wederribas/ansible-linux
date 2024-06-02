@@ -1,3 +1,16 @@
+- name: Update packages with dnf
+  become: true
+  dnf:
+    name: '*'
+    update_cache: true
+    update_only: true
+    state: latest
+
+- name: Remove packages not needed anymore
+  become: true
+  dnf:
+    autoremove: true
+
 - name: Install the 'Development tools' package group
   ansible.builtin.dnf:
     name: '@Development tools'
@@ -10,6 +23,7 @@
     name:
       - autojump
       - autojump-zsh
+      - code
       - stow
     state: present
   become: true

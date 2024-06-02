@@ -1,0 +1,19 @@
+# VSCode
+- name: Install Microsoft package keys
+  ansible.builtin.command: rpm --import https://packages.microsoft.com/keys/microsoft.asc 
+  become: true
+  tags: &tags_for_dnf_repos_task ['dnf', 'install']
+
+- name: Add Microsoft VSCode repo
+  copy:
+    dest: /etc/yum.repos.d/vscode.repo
+    content: |
+      [code]
+      name=Visual Studio Code
+      baseurl=https://packages.microsoft.com/yumrepos/vscode
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+  become: true
+  tags: [*tags_for_dnf_repos_task]
+
